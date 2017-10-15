@@ -1,0 +1,6 @@
+#!/bin/bash
+
+cargo +nightly clippy
+if [[ $? -eq 0 ]]; then
+  RUST_LOG=lang=trace cargo test
+fi

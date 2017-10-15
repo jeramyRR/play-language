@@ -23,7 +23,7 @@ pub fn tokenizer(input: &str) -> Vec<Token> {
             '(' | ')' => {
                 debug!("Adding token: Paren({})", cur_char);
                 tokens.push(Token::Paren(cur_char));
-                current = current + 1;
+                current += 1;
                 continue;
             }
             '0' ... '9' => {
@@ -31,7 +31,7 @@ pub fn tokenizer(input: &str) -> Vec<Token> {
 
                 while cur_char.is_numeric() {
                     num_value.push(cur_char);
-                    current = current + 1;
+                    current += 1;
                     cur_char = input_chars[current];
                 }
 
@@ -42,25 +42,25 @@ pub fn tokenizer(input: &str) -> Vec<Token> {
             '"' => {
                 let mut str_value = String::new();
 
-                current = current + 1;
+                current += 1;
                 cur_char = input_chars[current];
 
                 while cur_char != '"' {
                     str_value.push(cur_char);
-                    current = current + 1;
+                    current += 1;
                     cur_char = input_chars[current];
                 }
 
                 debug!("Adding token: String({})", str_value);
                 tokens.push(Token::String(str_value));
 
-                current = current + 1; // skip the closing '"' character
+                current += 1;
 
                 continue;
             }
             _ if cur_char.is_whitespace() => {
                 trace!("Skipping whitespace");
-                current = current + 1;
+                current += 1;
                 continue;
             }
             _ if cur_char.is_alphabetic() => {
@@ -68,18 +68,20 @@ pub fn tokenizer(input: &str) -> Vec<Token> {
 
                 while cur_char.is_alphabetic() {
                     letter_value.push(cur_char);
-                    current = current + 1;
+                    current += 1;
                     cur_char = input_chars[current];
                 }
 
                 debug!("Adding token: Name({})", letter_value);
                 tokens.push(Token::Name(letter_value));
             }
-            _ => {}
+            _ => {
+                panic!("Unrecognized character: {}", cur_char);
+            }
         }
     }
 
-    return tokens;
+    tokens
 }
 
 #[cfg(test)]
