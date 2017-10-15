@@ -1,0 +1,11 @@
+[package]
+name = "lang"
+version = "0.1.0"
+authors = ["Jeramy Singleton <jeramyRR@gmail.com>"]
+
+[dependencies]
+regex = "*"
+log = "0.3.8"
+
+[dev-dependencies]
+env_logger = "0.4.3"
