@@ -1,11 +1,10 @@
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub enum Token {
     Paren(char),
     String(String),
     Number(String),
     Name(String)
 }
-
 
 /// Take a string of code and tokenize it
 /// (add 2 (subtract 4 2)) => [ { type: 'paren', value: '('}, ...]
